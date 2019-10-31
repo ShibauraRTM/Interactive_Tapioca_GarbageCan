@@ -1,0 +1,54 @@
+# CreateTapioca CMake config file
+#
+# This file sets the following variables:
+# CreateTapioca_FOUND - Always TRUE.
+# CreateTapioca_INCLUDE_DIRS - Directories containing the CreateTapioca include files.
+# CreateTapioca_IDL_DIRS - Directories containing the CreateTapioca IDL files.
+# CreateTapioca_LIBRARIES - Libraries needed to use CreateTapioca.
+# CreateTapioca_DEFINITIONS - Compiler flags for CreateTapioca.
+# CreateTapioca_VERSION - The version of CreateTapioca found.
+# CreateTapioca_VERSION_MAJOR - The major version of CreateTapioca found.
+# CreateTapioca_VERSION_MINOR - The minor version of CreateTapioca found.
+# CreateTapioca_VERSION_REVISION - The revision version of CreateTapioca found.
+# CreateTapioca_VERSION_CANDIDATE - The candidate version of CreateTapioca found.
+
+message(STATUS "Found CreateTapioca-@PROJECT_VERSION@")
+set(CreateTapioca_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(CreateTapioca_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(CreateTapioca_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(CreateTapioca_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(CreateTapioca_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(CreateTapioca_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(CreateTapioca_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(CreateTapioca_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(CreateTapioca_VERSION @PROJECT_VERSION@)
+set(CreateTapioca_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(CreateTapioca_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(CreateTapioca_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(CreateTapioca_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

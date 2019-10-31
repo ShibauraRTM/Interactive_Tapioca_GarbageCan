@@ -1,0 +1,54 @@
+# music CMake config file
+#
+# This file sets the following variables:
+# music_FOUND - Always TRUE.
+# music_INCLUDE_DIRS - Directories containing the music include files.
+# music_IDL_DIRS - Directories containing the music IDL files.
+# music_LIBRARIES - Libraries needed to use music.
+# music_DEFINITIONS - Compiler flags for music.
+# music_VERSION - The version of music found.
+# music_VERSION_MAJOR - The major version of music found.
+# music_VERSION_MINOR - The minor version of music found.
+# music_VERSION_REVISION - The revision version of music found.
+# music_VERSION_CANDIDATE - The candidate version of music found.
+
+message(STATUS "Found music-@PROJECT_VERSION@")
+set(music_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(music_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(music_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(music_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(music_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(music_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(music_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(music_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(music_VERSION @PROJECT_VERSION@)
+set(music_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(music_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(music_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(music_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
