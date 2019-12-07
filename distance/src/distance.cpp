@@ -135,7 +135,7 @@ RTC::ReturnCode_t distance::onExecute(RTC::UniqueId ec_id)
 
 	if(m_distanceIn.isNew()){
 		m_distanceIn.read();
-		if ( initial == -1) //初めて距離を読み取るとき
+		if ( initial < 0 ) //初めて距離を読み取るとき
 		{
 			initial = m_distance.data;
 		}else
