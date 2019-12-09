@@ -13,23 +13,23 @@
 
 #include "music.h"
 #include "DxLib.h"
-// Module specification
-// <rtc-template block="module_spec">
+ // Module specification
+ // <rtc-template block="module_spec">
 static const char* music_spec[] =
-  {
-    "implementation_id", "music",
-    "type_name",         "music",
-    "description",       "make a sound",
-    "version",           "1.0.0",
-    "vendor",            "Kohei Kubota",
-    "category",          "Category",
-    "activity_type",     "PERIODIC",
-    "kind",              "DataFlowComponent",
-    "max_instance",      "1",
-    "language",          "C++",
-    "lang_type",         "compile",
-    ""
-  };
+{
+  "implementation_id", "music",
+  "type_name",         "music",
+  "description",       "make a sound",
+  "version",           "1.0.0",
+  "vendor",            "Kohei Kubota",
+  "category",          "Category",
+  "activity_type",     "PERIODIC",
+  "kind",              "DataFlowComponent",
+  "max_instance",      "1",
+  "language",          "C++",
+  "lang_type",         "compile",
+  ""
+};
 // </rtc-template>
 
 /*!
@@ -37,11 +37,11 @@ static const char* music_spec[] =
  * @param manager Maneger Object
  */
 music::music(RTC::Manager* manager)
-    // <rtc-template block="initializer">
-  : RTC::DataFlowComponentBase(manager),
-    m_1or0In("1or0", m_1or0)
+// <rtc-template block="initializer">
+	: RTC::DataFlowComponentBase(manager),
+	m_1or0In("1or0", m_1or0)
 
-    // </rtc-template>
+	// </rtc-template>
 {
 }
 
@@ -56,25 +56,25 @@ music::~music()
 
 RTC::ReturnCode_t music::onInitialize()
 {
-  // Registration: InPort/OutPort/Service
-  // <rtc-template block="registration">
-  // Set InPort buffers
-  addInPort("1or0", m_1or0In);
-  
-  // Set OutPort buffer
-  
-  // Set service provider to Ports
-  
-  // Set service consumers to Ports
-  
-  // Set CORBA Service Ports
-  
-  // </rtc-template>
+	// Registration: InPort/OutPort/Service
+	// <rtc-template block="registration">
+	// Set InPort buffers
+	addInPort("1or0", m_1or0In);
 
-  // <rtc-template block="bind_config">
-  // </rtc-template>
-  
-  return RTC::RTC_OK;
+	// Set OutPort buffer
+
+	// Set service provider to Ports
+
+	// Set service consumers to Ports
+
+	// Set CORBA Service Ports
+
+	// </rtc-template>
+
+	// <rtc-template block="bind_config">
+	// </rtc-template>
+
+	return RTC::RTC_OK;
 }
 
 /*
@@ -105,13 +105,13 @@ RTC::ReturnCode_t music::onShutdown(RTC::UniqueId ec_id)
 RTC::ReturnCode_t music::onActivated(RTC::UniqueId ec_id)
 {
 	ChangeWindowMode(TRUE);
-	
+
 	if (DxLib_Init() == -1)    // ＤＸライブラリ初期化処理
 	{
 		return RTC::RTC_ERROR;    // エラーが起きたら直ちに終了
 	}
 
-  return RTC::RTC_OK;
+	return RTC::RTC_OK;
 }
 
 /*!
@@ -122,7 +122,7 @@ RTC::ReturnCode_t music::onDeactivated(RTC::UniqueId ec_id)
 {
 	DxLib_End();
 
-  return RTC::RTC_OK;
+	return RTC::RTC_OK;
 }
 
 
@@ -144,13 +144,13 @@ RTC::ReturnCode_t music::onExecute(RTC::UniqueId ec_id)
 		if (m_1or0.data == 1 && flag == 1)
 		{
 			flag = 0;
-	
+
 			PlaySoundFile(_T("water-drop3.mp3"), DX_PLAYTYPE_NORMAL); // water-drop3.mp3(タピオカが落ちる音)の再生
 
 
 		}
 	}
-  return RTC::RTC_OK;
+	return RTC::RTC_OK;
 }
 
 /*
@@ -192,15 +192,15 @@ RTC::ReturnCode_t music::onRateChanged(RTC::UniqueId ec_id)
 
 extern "C"
 {
- 
-  void musicInit(RTC::Manager* manager)
-  {
-    coil::Properties profile(music_spec);
-    manager->registerFactory(profile,
-                             RTC::Create<music>,
-                             RTC::Delete<music>);
-  }
-  
+
+	void musicInit(RTC::Manager* manager)
+	{
+		coil::Properties profile(music_spec);
+		manager->registerFactory(profile,
+			RTC::Create<music>,
+			RTC::Delete<music>);
+	}
+
 };
 
 

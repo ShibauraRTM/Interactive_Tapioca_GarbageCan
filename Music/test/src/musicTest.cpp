@@ -13,23 +13,23 @@
 
 #include "musicTest.h"
 
-// Module specification
-// <rtc-template block="module_spec">
+ // Module specification
+ // <rtc-template block="module_spec">
 static const char* music_spec[] =
-  {
-    "implementation_id", "musicTest",
-    "type_name",         "musicTest",
-    "description",       "make a sound",
-    "version",           "1.0.0",
-    "vendor",            "Kohei Kubota",
-    "category",          "Category",
-    "activity_type",     "PERIODIC",
-    "kind",              "DataFlowComponent",
-    "max_instance",      "1",
-    "language",          "C++",
-    "lang_type",         "compile",
-    ""
-  };
+{
+  "implementation_id", "musicTest",
+  "type_name",         "musicTest",
+  "description",       "make a sound",
+  "version",           "1.0.0",
+  "vendor",            "Kohei Kubota",
+  "category",          "Category",
+  "activity_type",     "PERIODIC",
+  "kind",              "DataFlowComponent",
+  "max_instance",      "1",
+  "language",          "C++",
+  "lang_type",         "compile",
+  ""
+};
 // </rtc-template>
 
 /*!
@@ -37,11 +37,11 @@ static const char* music_spec[] =
  * @param manager Maneger Object
  */
 musicTest::musicTest(RTC::Manager* manager)
-    // <rtc-template block="initializer">
-  : RTC::DataFlowComponentBase(manager),
-    m_1or0In("1or0", m_1or0)
+// <rtc-template block="initializer">
+	: RTC::DataFlowComponentBase(manager),
+	m_1or0In("1or0", m_1or0)
 
-    // </rtc-template>
+	// </rtc-template>
 {
 }
 
@@ -56,25 +56,25 @@ musicTest::~musicTest()
 
 RTC::ReturnCode_t musicTest::onInitialize()
 {
-  // Registration: InPort/OutPort/Service
-  // <rtc-template block="registration">
-  // Set InPort buffers
-  
-  // Set OutPort buffer
-  addOutPort("1or0", m_1or0Out);
-  
-  // Set service provider to Ports
-  
-  // Set service consumers to Ports
-  
-  // Set CORBA Service Ports
-  
-  // </rtc-template>
+	// Registration: InPort/OutPort/Service
+	// <rtc-template block="registration">
+	// Set InPort buffers
 
-  // <rtc-template block="bind_config">
-  // </rtc-template>
-  
-  return RTC::RTC_OK;
+	// Set OutPort buffer
+	addOutPort("1or0", m_1or0Out);
+
+	// Set service provider to Ports
+
+	// Set service consumers to Ports
+
+	// Set CORBA Service Ports
+
+	// </rtc-template>
+
+	// <rtc-template block="bind_config">
+	// </rtc-template>
+
+	return RTC::RTC_OK;
 }
 
 /*
@@ -104,7 +104,7 @@ RTC::ReturnCode_t musicTest::onShutdown(RTC::UniqueId ec_id)
 
 RTC::ReturnCode_t musicTest::onActivated(RTC::UniqueId ec_id)
 {
-  return RTC::RTC_OK;
+	return RTC::RTC_OK;
 }
 
 /*
@@ -121,7 +121,7 @@ RTC::ReturnCode_t musicTest::onDeactivated(RTC::UniqueId ec_id)
 
 RTC::ReturnCode_t musicTest::onExecute(RTC::UniqueId ec_id)
 {
-  return RTC::RTC_OK;
+	return RTC::RTC_OK;
 }
 
 /*
@@ -163,15 +163,15 @@ RTC::ReturnCode_t musicTest::onRateChanged(RTC::UniqueId ec_id)
 
 extern "C"
 {
- 
-  void musicTestInit(RTC::Manager* manager)
-  {
-    coil::Properties profile(music_spec);
-    manager->registerFactory(profile,
-                             RTC::Create<musicTest>,
-                             RTC::Delete<musicTest>);
-  }
-  
+
+	void musicTestInit(RTC::Manager* manager)
+	{
+		coil::Properties profile(music_spec);
+		manager->registerFactory(profile,
+			RTC::Create<musicTest>,
+			RTC::Delete<musicTest>);
+	}
+
 };
 
 
